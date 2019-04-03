@@ -58,6 +58,8 @@ class AddressController extends Controller
     public function edit(Address $address)
     {
         //
+        $address=Address::findOrFail($address);
+
     }
 
     /**
@@ -70,6 +72,9 @@ class AddressController extends Controller
     public function update(Request $request, Address $address)
     {
         //
+        $address=Address::findOrFail($request);
+
+
     }
 
     /**

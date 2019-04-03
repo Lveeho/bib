@@ -20,6 +20,7 @@ class CreateAddressesTable extends Migration
             $table->string('nr');
             $table->string('busnr');
             $table->string('postalcode');
+            $table->string('country');
 
         });
     }

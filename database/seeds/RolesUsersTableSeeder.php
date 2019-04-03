@@ -18,7 +18,7 @@ class RolesUsersTableSeeder extends Seeder
         foreach(range(1,20) as $index){
             DB::table('role_user')->insert([
                 'user_id'=>$faker->unique()->numberBetween($min=1,$max=20),
-                'role_id'=>rand(1,2)
+                'role_id'=>2
             ]);
 
         }

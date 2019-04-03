@@ -7,7 +7,7 @@
     {!! Form::model($user,['method'=>'PATCH','action'=>['UsersController@update',$user->id]]) !!}
 
     <div class="row">
-        <div class="col-md-9">
+        <div class="col-6">
             <div class="form-group">
                 {!! Form::label('user_firstname','Voornaam:') !!}
                 {!! Form::text('user_firstname',null,['class'=>'form-control']) !!}
@@ -28,38 +28,85 @@
                 {!! Form::label('password','Password:') !!}
                 {!! Form::password('password',['class'=>'form-control']) !!}
             </div>
-            <table class="table table-striped">
-                <thead>
-                <tr>
-                    <th>
-                        Rollen
-                    </th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr>
-                    <td>@foreach($user->roles as $role)
-                            {{$role->name}}
-                        @endforeach
-                    </td>
-                </tr>
-                </tbody>
-            </table>
-
+            <div class="form-group">
+                {!! Form::label('status','Status:') !!}
+                {!! Form::select('status',array(1=>'Actief',0=>'Non-actief'),null,['class'=>'form-control']) !!}
+            </div>
 
             <div class="form-group">
-                {!! Form::label('role_id','Role:') !!}
+                {!! Form::label('role_id','Nieuwe rol toewijzen:') !!}
                 {!! Form::select('role_id',[''=>'Choose options'] + $roles,null,['class'=>'form-control']) !!}
             </div>
 
             <div class="form-group">
                 {!! Form::submit('Update User', ['class' => 'btn btn-primary col-md-3']) !!}
             </div>
+            {!! Form::close() !!}
+
+
+
+            {!! Form::open(['method'=>'DELETE', 'action'=>['UsersController@destroy',$user->id]])
+             !!}
+            <div class="form-group">
+                {!! Form::label('role_id','Bestaande rol verwijderen:') !!}
+                {!! Form::select('role_id',[''=>'Choose options'] + $roles,null,['class'=>'form-control']) !!}
+            </div>
+            <div class="form-group">
+                {!! Form::submit('Delete Role',['class'=>'btn btn-danger']) !!}
+            </div>
+            {!! Form::close() !!}
+
+        </div>
+        <div class="col-6">
+            <table class="table table-light w-25 mt-4 bg-inverse-dark ">
+                <thead>
+                <tr><th>Huidige rol(len):</th></tr>
+                </thead>
+                <tbody>
+                @foreach($user->roles as $role)
+                    <tr><td>{{$role->name}}</td></tr>
+                @endforeach
+                </tbody>
+            </table>
+
+            <div class="row">
+                <div class="col mt-3">
+                    {!! Form::model($address,['method'=>'PATCH','action'=>['UsersController@update',$user->id]])
+                     !!}
+                    <div class="form-group">
+                        {!! Form::label('street','Straat:') !!}
+                        {!! Form::text('street',null,['class'=>'form-control'])
+                         !!}
+                    </div>
+                    <div class="form-group">
+                        {!! Form::label('nr','Nr:') !!}
+                        {!! Form::text('nr',null,['class'=>'form-control'])
+                         !!}
+                    </div>
+                    <div class="form-group">
+                        {!! Form::label('busnr','Busnr:') !!}
+                        {!! Form::text('busnr',null,['class'=>'form-control']) !!}
+                    </div>
+                    <div class="form-group">
+                        {!! Form::label('postalcode','Postcode:') !!}
+                        {!! Form::text('postalcode',null,['class'=>'form-control']) !!}
+                    </div>
+                    <div class="form-group">
+                        {!! Form::label('country','Land:') !!}
+                        {!! Form::text('country',null,['class'=>'form-control']) !!}
+                    </div>
+                    <div class="form-group">
+                        {!! Form::submit('Update Address', ['class' => 'btn btn-primary']) !!}
+                    </div>
+                    {!! Form::close() !!}
+                </div>
+            </div>
+
         </div>
 
-        {!! Form::close() !!}
-        {{--{!! Form::open(['method'=>'DELETE', 'action'=>['AdminUsersController@destroy',$user->id]]) !!}--}}
+    </div>
 
+    <div class="row">
 
     </div>
     @include('includes.form_error')

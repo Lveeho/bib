@@ -11,13 +11,12 @@
             <th scope="col">Rijksregisternummer</th>
             <th scope="col">Adres</th>
             <th scope="col">Rol</th>
+            <th scope="col">Status</th>
         </tr>
         </thead>
         <tbody>
         @if($users)
             @foreach($users as $user)
-
-
             <tr>
                 <td>{{$user->id}}
                     <button type="button" class="btn btn-secondary ml-2 text-primary">
@@ -28,13 +27,22 @@
                 <td>{{$user->user_lastname}}</td>
                 <td>{{$user->email}}</td>
                 <td>{{$user->rijksnr}}</td>
-                <td>{{$user->address_id}}</td>
+                <td>{{$user->address->street}}
+                    {{$user->address->nr}}
+                    {{$user->address->busnr}}
+                    {{$user->address->postalcode}}
+                    {{$user->address->country}}
 
-                <td>@foreach($user->roles as $role)
 
+
+
+                </td>
+                <td>
+                    @foreach($user->roles as $role)
                     {{$role->name}}
-                @endforeach</td>
-
+                @endforeach
+                </td>
+                <td>{{$user->status}}</td>
             </tr>
             @endforeach
         @endif

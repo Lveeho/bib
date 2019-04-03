@@ -98,6 +98,10 @@
             <div class="row align-items-center">
                 <div class="col-12" data-aos="fade">
                     <h1>Find Job</h1>
+                    @foreach($books as $book)
+                        <p> {{$book->booktitle}}</p>
+
+                    @endforeach
                     <form action="#">
                         <div class="row mb-3">
                             <div class="col-md-9">
@@ -141,7 +145,7 @@
                 <div class="col-sm-6 col-md-4 col-lg-3 mb-3" data-aos="fade-up" data-aos-delay="100">
                     <a href="#" class="h-100 feature-item">
                         <span class="d-block icon flaticon-calculator mb-3 text-primary"></span>
-                        <h2>Accounting / Finanace</h2>
+                        <h2>Accounting / Finance</h2>
                         <span class="counting">10,391</span>
                     </a>
                 </div>
@@ -470,6 +474,8 @@
             <div class="row">
                 <div class="col-md-6 mx-auto text-center mb-5 section-heading">
                     <h2>Recent Blog</h2>
+
+
                 </div>
             </div>
 

@@ -7,6 +7,8 @@ use App\User;
 use App\Role;
 use App\Rental;
 use App\Address;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 
 class UsersController extends Controller
@@ -19,9 +21,8 @@ class UsersController extends Controller
     public function index()
     {
         //
-
-
         $users=User::with('roles')->paginate(10);
+
         //dd($users);
         return view('admin.users.index',compact('users'));
     }
@@ -47,6 +48,18 @@ class UsersController extends Controller
     {
         //
 
+        $input=$request->all();
+        $input['password']=Hash::make($request['password']);
+        if(Auth::user()->roles->where('name', 'admin')->First() == true){
+            Address::create($input);
+            $address_id=Address::get('id')->last();
+            $test=(array_merge($input,['address_id'=>$address_id->id]));
+            User::create($test);
+            //User::create($request->except('address_id'));
+        }
+        return redirect()->route('users.index');
+
+
     }
 
     /**
@@ -58,6 +71,8 @@ class UsersController extends Controller
     public function show($id)
     {
         //
+
+
     }
 
     /**
@@ -69,10 +84,14 @@ class UsersController extends Controller
     public function edit($id)
     {
         //
-        $users=User::with('roles');
+
         $user=User::findOrFail($id);
         $roles=Role::pluck('name','id')->all();
-        return view('admin.users.edit',compact('user','roles'));
+        $address=Address::where('id',$user->address_id)->first();
+        //dd($address);
+
+
+        return view('admin.users.edit',compact('user','roles','address'));
     }
 
     /**
@@ -85,9 +104,10 @@ class UsersController extends Controller
     public function update(Request $request, $id)
     {
         //
+
         $user=User::findOrFail($id);
+        $address=Address::where('id',$user->address_id)->first();
         $role_id=$request->role_id;
-        $user->roles()->syncWithoutDetaching([$role_id]);
 
 
 
@@ -96,10 +116,15 @@ class UsersController extends Controller
         }else{
             $input=$request->all();
             $input['password']=Hash::make($request['password']); /*dit komt uit formulier, veldmanier*/
-
         }
+
+        if(isset($role_id) ){
+            $user->roles()->syncWithoutDetaching([$role_id]);
+        }
+
         $user->update($input);
-        return redirect('admin/users');
+        $address->update($input);
+        return redirect()->back();
 
 
     }
@@ -111,8 +136,13 @@ class UsersController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request, $id)
     {
         //
+        $user=User::findOrFail($id);
+        $user->roles()->detach($request['role_id']);
+
+//
+        return redirect()->route('users.edit',['id'=>$id]);
     }
 }

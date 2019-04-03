@@ -19,36 +19,18 @@ Route::get('/', function () {
 });
 
 
-/*bij surfen naar public/role/create wordt een nieuwe rol aangemaakt indien het nog niet bestond*/
-Route::get('role/create', function () {
-    $myroles=['admin','ontlener'];
-    $testRol=Role::all(); /*hier zitten alle rollen in van de database uit de tabel rol*/
-    $teller=0;
-    foreach ($myroles as $myrole){
-
-        foreach ($testRol as $rol){
-            if($myrole==$rol->name){
-                $teller++;
-            }
-        }
-        if ($teller ==0){
-            $role=new Role();
-            $role->name=$myrole;
-            $role->save();
-        }
-        $teller=0;
-    }
-});
-
-/* bij surfen naar public/multipleroles krijgt user_id 2 beide rollen*/
-Route::get('/multipleroles',function(){
-    $user=User::findOrFail(2);
-    $user->roles()->sync([1,2]);
-});
-
-
-
 Auth::routes();
+
+Route::get('/', 'Frontcontroller@index');
+Route::get('/shop', 'Frontcontroller@shop');
+Route::get('/cart', 'Frontcontroller@cart');
+
+Route::group(['middleware'=>'client'],function(){
+Route::get('/mijnrentals','FrontController@rentals');
+    Route::get('/account','FrontController@account');
+});
+
+
 
 Route::get('/home', 'HomeController@index')->name('home');
 

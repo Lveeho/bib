@@ -241,13 +241,13 @@
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="{{route('users.index')}}">
-                        <i class="fas fa-desktop mr-3"></i>
+                        <i class="fas fa-user-friends mr-3"></i>
                         <span class="menu-title">Users</span>
                     </a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="{{route('users.create')}}">
-                        <i class="fas fa-desktop mr-3"></i>
+                        <i class="fas fa-users-cog mr-3"></i>
                         <span class="menu-title">Users Create</span>
                     </a>
                 </li>

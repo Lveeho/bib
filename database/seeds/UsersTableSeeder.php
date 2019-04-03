@@ -18,9 +18,10 @@ class UsersTableSeeder extends Seeder
             'user_firstname'=>'Lore',
             'user_lastname'=>'Vanhooren',
             'email'=>'vanhooren.lore@hotmail.com',
-            'address_id'=>1,
             'password'=>bcrypt(123456),
-            'remember_token'=>str_random(10)
+            'status'=>1,
+            'remember_token'=>str_random(10),
+            'address_id'=>21
         ]);
     }
 }

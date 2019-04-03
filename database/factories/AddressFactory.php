@@ -9,6 +9,6 @@ $factory->define(\App\Address::class, function (Faker $faker) {
         'nr' => $faker->buildingNumber,
         'busnr' => $faker->buildingNumber,
         'postalcode' => $faker->postcode,
-
+        'country'=>$faker->country
     ];
 });
