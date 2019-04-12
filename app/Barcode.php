@@ -8,7 +8,7 @@ class Barcode extends Model
 {
     //
     protected $fillable = [
-        'book_id','barcode'
+        'book_id','barcode','status'
     ];
     public function book(){
         return $this->belongsTo('App\Book');

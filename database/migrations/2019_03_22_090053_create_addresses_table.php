@@ -18,7 +18,7 @@ class CreateAddressesTable extends Migration
             $table->timestamps();
             $table->string('street');
             $table->string('nr');
-            $table->string('busnr');
+            $table->string('busnr')->nullable();
             $table->string('postalcode');
             $table->string('country');
 

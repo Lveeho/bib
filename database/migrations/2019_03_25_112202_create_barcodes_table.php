@@ -17,6 +17,7 @@ class CreateBarcodesTable extends Migration
             $table->bigIncrements('id');
             $table->integer('book_id');
             $table->integer('barcode');
+            $table->boolean('status')->default(1);
             $table->timestamps();
         });
     }

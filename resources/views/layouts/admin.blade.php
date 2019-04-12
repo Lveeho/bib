@@ -252,15 +252,15 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="pages/charts/chartjs.html">
-                        <i class="fas fa-desktop mr-3"></i>
-                        <span class="menu-title">Charts</span>
+                    <a class="nav-link" href="{{route('books.index')}}">
+                        <i class="fas fa-book mr-3"></i>
+                        <span class="menu-title">Books</span>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="pages/tables/basic-table.html">
-                        <i class="fas fa-desktop mr-3"></i>
-                        <span class="menu-title">Tables</span>
+                    <a class="nav-link" href="{{route('books.create')}}">
+                        <i class="fas fa-book-medical mr-3"></i>
+                        <span class="menu-title">Books Create</span>
                     </a>
                 </li>
                 <li class="nav-item">

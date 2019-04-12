@@ -13,5 +13,11 @@ class AddressesTableSeeder extends Seeder
     {
         //
         factory('App\Address',20)->create();
+        DB::table('addresses')->insert([
+            'street'=>'Petunialaan',
+            'nr'=>'18',
+            'postalcode'=>8430,
+            'country'=>'Belgium'
+            ]);
     }
 }

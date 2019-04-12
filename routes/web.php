@@ -38,6 +38,7 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::group(['middleware'=>'admin'],function(){
     Route::get('/admin','HomeController@index');
     Route::resource('/admin/users','UsersController');
+    Route::resource('/admin/books','BookController');
 
 
 
