@@ -18,6 +18,7 @@ class CreateAuthorsTable extends Migration
             $table->timestamps();
             $table->string('author_firstname');
             $table->string('author_lastname');
+            $table->softDeletes();
         });
     }
 

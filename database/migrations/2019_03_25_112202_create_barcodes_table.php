@@ -19,6 +19,7 @@ class CreateBarcodesTable extends Migration
             $table->integer('barcode');
             $table->boolean('status')->default(1);
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

@@ -23,6 +23,7 @@ class CreateBooksTable extends Migration
             $table->text('description');
             $table->string('photo_id');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

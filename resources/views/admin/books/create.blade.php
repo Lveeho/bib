@@ -1,9 +1,10 @@
 @extends('layouts.admin')
 @section('content')
-    <h1>Edit Book</h1>
+    <h1 class="mb-3">Boek aanmaken</h1>
+    <hr>
     {!! Form::open(['method'=>'POST','action'=>'BookController@store','files'=>true]) !!}
     <div class="row">
-        <div class="col-6">
+        <div class="col-lg-6 pr-lg-5">
             <div class="form-group">
                 {!! Form::label('ISBN','ISBN:') !!}
                 {!! Form::text('ISBN',null,['class'=>'form-control']) !!}
@@ -34,7 +35,7 @@
             </div>
 
         </div>
-        <div class="col-6">
+        <div class="col-lg-6">
 
             <div class="form-group">
                 {!! Form::label('barcode','Barcode:') !!}

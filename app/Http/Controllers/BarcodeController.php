@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Barcode;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class BarcodeController extends Controller
 {
@@ -36,6 +37,14 @@ class BarcodeController extends Controller
     public function store(Request $request)
     {
         //
+        $input=$request->all();
+        $check=Auth::user()->roles->where('name', 'admin')->First() == true;
+        if($check){
+            $test=(array_merge($input,['book_id'=>$request->input('id')]));
+            Barcode::create($test);
+        }
+
+        return back();
     }
 
     /**
@@ -81,5 +90,8 @@ class BarcodeController extends Controller
     public function destroy(Barcode $barcode)
     {
         //
+        $barcodeDel=Barcode::where('id',$barcode->id)->first();
+        $barcodeDel->delete();
+        return back();
     }
 }

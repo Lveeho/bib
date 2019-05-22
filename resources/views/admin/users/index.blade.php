@@ -1,28 +1,28 @@
 @extends('layouts.admin')
 @section('content')
-    <h1>Users</h1>
-    <table class="table table-striped">
+
+
+    <h1 class="mb-3">Users</h1>
+    <hr>
+    <table class="table table-striped mt-2">
         <thead>
-        <tr>
-            <th scope="col">id</th>
+        <tr class="bg-white">
             <th scope="col">Voornaam</th>
             <th scope="col">Achternaam</th>
             <th scope="col">Email</th>
             <th scope="col">Rijksregisternummer</th>
             <th scope="col">Adres</th>
             <th scope="col">Rol</th>
-            <th scope="col">Status</th>
         </tr>
         </thead>
         <tbody>
         @if($users)
             @foreach($users as $user)
-            <tr>
-                <td>{{$user->id}}
-                    <button type="button" class="btn btn-secondary ml-2 text-primary">
-                        <a href="{{route('users.edit',$user->id)}}">Edit</a>
-                    </button>
-                </td>
+
+            @if ($user->status===0)
+            <tr class="table-row text-muted" data-toggle="tooltip" title="Wijzig" data-placement="right"
+                    data-href="{{route('users.edit',$user->id)}}" style="background-color:#edeff2;">
+
                 <td>{{$user->user_firstname}}</td>
                 <td>{{$user->user_lastname}}</td>
                 <td>{{$user->email}}</td>
@@ -32,18 +32,34 @@
                     {{$user->address->busnr}}
                     {{$user->address->postalcode}}
                     {{$user->address->country}}
-
-
-
-
                 </td>
                 <td>
                     @foreach($user->roles as $role)
                     {{$role->name}}
                 @endforeach
                 </td>
-                <td>{{$user->status}}</td>
             </tr>
+                @else
+                <tr class="table-row" data-toggle="tooltip" title="Wijzig" data-placement="right"
+                    data-href="{{route('users.edit',$user->id)}}">
+
+                    <td>{{$user->user_firstname}}</td>
+                    <td>{{$user->user_lastname}}</td>
+                    <td>{{$user->email}}</td>
+                    <td>{{$user->rijksnr}}</td>
+                    <td>{{$user->address->street}}
+                        {{$user->address->nr}}
+                        {{$user->address->busnr}}
+                        {{$user->address->postalcode}}
+                        {{$user->address->country}}
+                    </td>
+                    <td>
+                        @foreach($user->roles as $role)
+                            {{$role->name}}
+                        @endforeach
+                    </td>
+                </tr>
+            @endif
             @endforeach
         @endif
         </tbody>
@@ -54,5 +70,6 @@
             {{$users->render()}}
         </div>
     </div>
+
 
 @endsection

@@ -20,12 +20,15 @@ class BookController extends Controller
     public function index()
     {
         //
-        $books=Book::paginate(10);
+        $books=Book::select(DB::raw('books.*'))
+            ->join('authors','authors.id','=','books.author_id')
+            ->orderBy('author_lastname','asc')
+            ->orderBy('year','asc')
+            ->orderBy('edition','asc')
+              ->paginate(10);
+        $authors=Author::all();
 
-
-
-        //dd($test);
-        return view('admin.books.index',compact('books'));
+        return view('admin.books.index',compact('books','authors'));
     }
 
     /**
@@ -122,12 +125,20 @@ class BookController extends Controller
     public function update(Request $request, $id)
     {
         //
+
         $input=$request->all();
         $book=Book::findOrFail($id);
         $barcodesId=Barcode::where('book_id',$book->id)->get("id");
 
+
+        $book->update($input);
+        if(!empty($file=$request->file('photo_id'))){
+            $book->addMediaFromRequest('image')->toMediaCollection('images');;
+        }
+
         if(!empty($request->barcode)){
             for ($i=0;$i<count($request->barcode);$i++){
+
                 DB::table('barcodes')
                     ->where('id',$barcodesId[$i]->id)
                     ->update([
@@ -135,14 +146,8 @@ class BookController extends Controller
                     ]);
             }
         }
-        $book->update($input);
-        //dd($input);
-//        if($file=$request->file('photo_id')){
-//            $name=time().$file->getClientOriginalName();
-//            $file->move('images',$name);
-//            $photo=Book::create(['photo_id'=>$name]);
-//            $input['photo_id']=$photo;
-//        }
+
+
 
         return redirect()->back();
     }
@@ -156,5 +161,11 @@ class BookController extends Controller
     public function destroy($id)
     {
         //
+        $bookId=Book::where('id',$id)->first();
+        $bookId->delete();
+        $barcodeDel=Barcode::where('book_id',$id)->first();
+        $barcodeDel->delete();
+        return back();
+
     }
 }

@@ -11,16 +11,13 @@
 |
 */
 
-use App\Role;
-use App\User;
+
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('auth.login');
 });
-
-
 Auth::routes();
-
+Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/', 'Frontcontroller@index');
 Route::get('/shop', 'Frontcontroller@shop');
 Route::get('/cart', 'Frontcontroller@cart');
@@ -31,14 +28,12 @@ Route::get('/mijnrentals','FrontController@rentals');
 });
 
 
-
-Route::get('/home', 'HomeController@index')->name('home');
-
-
 Route::group(['middleware'=>'admin'],function(){
     Route::get('/admin','HomeController@index');
     Route::resource('/admin/users','UsersController');
     Route::resource('/admin/books','BookController');
+    Route::resource('/admin/books/barcodes','BarcodeController');
+    Route::resource('/admin/authors','AuthorController');
 
 
 

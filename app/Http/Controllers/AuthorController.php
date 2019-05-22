@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Author;
+use App\Barcode;
+use App\Book;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class AuthorController extends Controller
 {
@@ -15,6 +18,11 @@ class AuthorController extends Controller
     public function index()
     {
         //
+        $authors=Author::select(DB::raw('authors.*'))
+            ->orderBy('author_lastname','asc')
+            ->paginate(10);
+
+        return view('admin.authors.index',compact('authors'));
     }
 
     /**
@@ -25,6 +33,7 @@ class AuthorController extends Controller
     public function create()
     {
         //
+        return view('admin.authors.create');
     }
 
     /**
@@ -36,6 +45,11 @@ class AuthorController extends Controller
     public function store(Request $request)
     {
         //
+        $input=$request->all();
+        Author::create($input);
+        $authors=Author::paginate(10);
+
+        return view('admin.authors.index',compact('authors'));
     }
 
     /**
@@ -44,9 +58,10 @@ class AuthorController extends Controller
      * @param  \App\Author  $author
      * @return \Illuminate\Http\Response
      */
-    public function show(Author $author)
+    public function show(Request $request)
     {
         //
+
     }
 
     /**
@@ -55,9 +70,11 @@ class AuthorController extends Controller
      * @param  \App\Author  $author
      * @return \Illuminate\Http\Response
      */
-    public function edit(Author $author)
+    public function edit($id)
     {
         //
+        $author=Author::findOrFail($id);
+        return view('admin.authors.edit',compact('author'));
     }
 
     /**
@@ -67,9 +84,14 @@ class AuthorController extends Controller
      * @param  \App\Author  $author
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Author $author)
+    public function update(Request $request, $id)
     {
         //
+        $input=$request->all();
+        $author=Author::findOrFail($id);
+        $author->update($input);
+
+        return redirect()->back();
     }
 
     /**
@@ -78,8 +100,19 @@ class AuthorController extends Controller
      * @param  \App\Author  $author
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Author $author)
+    public function destroy($id)
     {
         //
+        $author=Author::where('id',$id)->first();
+        $author->delete();
+        $books=Book::where('author_id',$id)->get();
+        foreach($books as $book){
+            $book->delete();
+            $barcodes=Barcode::where('book_id',$book->id)->get();
+            foreach($barcodes as $barcode){
+                $barcode->delete();
+            }
+        }
+        return back();
     }
 }
