@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Rental;
+use App\Logs;
 use Illuminate\Http\Request;
 
-class RentalController extends Controller
+class LogsController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,10 +15,8 @@ class RentalController extends Controller
     public function index()
     {
         //
-        $rentals=Rental::paginate(10);
-
-        return view('admin.rentals.index',compact('rentals'));
-
+        $logs=Logs::paginate(10);
+        return view('admin.logs.index',compact('logs'));
     }
 
     /**
@@ -45,10 +43,10 @@ class RentalController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Rental  $rental
+     * @param  \App\Logs  $logs
      * @return \Illuminate\Http\Response
      */
-    public function show(Rental $rental)
+    public function show(Logs $logs)
     {
         //
     }
@@ -56,10 +54,10 @@ class RentalController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Rental  $rental
+     * @param  \App\Logs  $logs
      * @return \Illuminate\Http\Response
      */
-    public function edit(Rental $rental)
+    public function edit(Logs $logs)
     {
         //
     }
@@ -68,10 +66,10 @@ class RentalController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Rental  $rental
+     * @param  \App\Logs  $logs
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Rental $rental)
+    public function update(Request $request, Logs $logs)
     {
         //
     }
@@ -79,10 +77,10 @@ class RentalController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Rental  $rental
+     * @param  \App\Logs  $logs
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Rental $rental)
+    public function destroy(Logs $logs)
     {
         //
     }

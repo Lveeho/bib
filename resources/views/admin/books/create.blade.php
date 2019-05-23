@@ -43,7 +43,7 @@
             </div>
 
             <div class="form-group">
-                {!! Form::submit('Create Book', ['class' => 'btn btn-primary col-md-3']) !!}
+                {!! Form::submit('Create Book', ['class' => 'btn btn-primary']) !!}
             </div>
 
         </div>

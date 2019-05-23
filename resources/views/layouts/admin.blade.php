@@ -81,9 +81,21 @@
                     </div>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="index.html">
-                        <i class="fas fa-desktop mr-3"></i>
-                        <span class="menu-title">Dashboard</span>
+                    <a class="nav-link" href="../public">
+                        <i class="fas fa-search mr-3"></i>
+                        <span class="menu-title">Zoeken</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{route('rentals.index')}}">
+                        <i class="fas fa-window-restore mr-3"></i>
+                        <span class="menu-title">Ontleningen</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{route('logs.index')}}">
+                        <i class="fas fa-history mr-3"></i>
+                        <span class="menu-title">Historiek</span>
                     </a>
                 </li>
                 <li class="nav-item">

@@ -12,6 +12,6 @@ class RentalsTableSeeder extends Seeder
     public function run()
     {
         //
-        factory('App\Rental',20)->create();
+
     }
 }

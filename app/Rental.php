@@ -8,7 +8,7 @@ class Rental extends Model
 {
     //
     protected $fillable = [
-        'user_id','barcode_id','rentaldate','returndate'
+        'user_id','barcode_id','rentaldate'
         ];
     public function user(){
         return $this->belongsTo('App\User'); //has many?//

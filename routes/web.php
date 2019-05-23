@@ -1,5 +1,7 @@
 <?php
 
+use App\Author;
+use Illuminate\Support\Facades\Input;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -11,32 +13,24 @@
 |
 */
 
+Route::get('/', 'Frontcontroller@index');
+Route::any('/search','FrontController@searchAuthor');
+Route::get('/rental', array('as' => 'rental', 'uses' => 'FrontController@rentBook'));
+Route::get('/hires', array('as' => 'rental', 'uses' => 'FrontController@returnBook'));
 
-
-Route::get('/', function () {
-    return view('auth.login');
-});
 Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
-Route::get('/', 'Frontcontroller@index');
-Route::get('/shop', 'Frontcontroller@shop');
-Route::get('/cart', 'Frontcontroller@cart');
-
 Route::group(['middleware'=>'client'],function(){
-Route::get('/mijnrentals','FrontController@rentals');
-    Route::get('/account','FrontController@account');
+
 });
-
-
 Route::group(['middleware'=>'admin'],function(){
     Route::get('/admin','HomeController@index');
     Route::resource('/admin/users','UsersController');
     Route::resource('/admin/books','BookController');
     Route::resource('/admin/books/barcodes','BarcodeController');
     Route::resource('/admin/authors','AuthorController');
-
-
-
+    Route::resource('/admin/rentals','RentalController');
+    Route::resource('/admin/logs','LogsController');
 });
 
 

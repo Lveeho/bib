@@ -69,6 +69,7 @@
 
             <div class="container-fluid">
                 @yield('login')
+                @yield('search')
             </div>
         </div>
 

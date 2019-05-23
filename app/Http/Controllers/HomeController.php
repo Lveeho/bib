@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Rental;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -23,6 +24,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('admin.index');
+        $rentals=Rental::paginate(10);
+        return view('admin.index',compact('rentals'));
     }
 }
