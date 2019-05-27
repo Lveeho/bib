@@ -13,8 +13,6 @@
                 <th scope="col">Auteur</th>
                 <th scope="col">Jaar <small>(Editie)</small></th>
                 <th scope="col">Beschrijving</th>
-                {{--<th scope="col">Barcodes</th>--}}
-                {{--<th scope="col">Foto</th>--}}
 
             </tr>
             </thead>
@@ -29,28 +27,24 @@
                             {!! Form::button('<i class="fas fa-trash-alt"></i>',['class'=>'btn create text-dark btn-sm',
                             'type'=>'submit']) !!}
                             {!! Form::close() !!}
-
-
                         </td>
-
-                        <td class="text-center"><?php $i=0;?>
+                        <td class="text-center"><?php $i=0; $a=0?>
                             @foreach($book->barcodes as $barcode)
+                                <?php $a++ ?>
                                 @if($barcode->status == 1)
                                     <?php $i++ ?>
                                 @endif
                             @endforeach
                             @if($i===0)
-                                <span class="badge badge-danger py-2 " style="width: 40%">{{$i}}</span>
+                                <span class="badge badge-danger p-2 " style="width: 100%">{{$i}}/{{$a}}</span>
                             @elseif($i===1)
-                                <span class="badge badge-warning py-2 " style="width: 40%">{{$i}}</span>
+                                <span class="badge badge-warning p-2 " style="width: 100%">{{$i}}/{{$a}}</span>
                             @else
-                                {{$i}}
+                                {{$i}}/{{$a}}
                             @endif
                         </td>
-
                         <td>{{$book->ISBN}}</td>
                         <td>{{Str::limit(($book->booktitle),40)}}</td>
-
                         <td>
                             @foreach($authors as $author)
                                 @if($author->id===$book->author_id)
@@ -58,22 +52,12 @@
                                 @endif
                             @endforeach
                         </td>
-                        <td style="width:10%;position:relative">{{$book->year}}<span style="position:absolute;top:25%"
-                                                                                     class="ml-1 badge badge-dark">{{$book->edition}}</span></td>
+                        <td style="width:10%;position:relative">{{$book->year}}<span style="position:absolute;top:25%" class="ml-1 badge badge-dark">{{$book->edition}}</span></td>
                         <td> {{Str::limit(($book->description),60)}}</td>
-
-                        {{--<td>@foreach($book->barcodes as $barcode)
-                                {{$barcode->barcode}} <br/>
-                            @endforeach
-                        </td>--}}
-                        {{-- <td>{{$book->photo_id}}</td>--}}
-
-
                     </tr>
                 @endforeach
             @endif
             </tbody>
-
         </table>
     </div>
 

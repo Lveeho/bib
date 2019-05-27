@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Barcode;
 use App\Rental;
+use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
 {
@@ -24,7 +27,17 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $rentals=Rental::paginate(10);
-        return view('admin.index',compact('rentals'));
+        $role=Auth::user()->status;
+            if ($role === 1){
+                $rentals=Rental::paginate(10);
+                $users=User::all();
+                $barcodes=Barcode::all();
+                return view('admin.index',compact('rentals','users','barcodes'));
+            }elseif ($role===2){
+                $rentals=Rental::where('user_id',Auth::user()->id)->paginate(10);
+                $users=User::all();
+                $barcodes=Barcode::all();
+                return view('admin.index',compact('rentals','users','barcodes'));
+            }
     }
 }

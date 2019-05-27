@@ -1,4 +1,3 @@
-@extends('layouts.admin')
 @section('content')
     <h1 class="mb-3">Lopende uitleningen</h1>
     <hr>
@@ -7,17 +6,59 @@
         <tr class="bg-white">
             <th scope="col">Gebruiker</th>
             <th scope="col">Barcode</th>
+            <th scope="col">Boekinfo</th>
             <th scope="col">Ontleend op</th>
             <th scope="col">Terugbrengen op</th>
             <th></th>
         </tr>
         </thead>
         <tbody>
-        @if($rentals)
-            @foreach($rentals as $rental)
+        @if(!empty($rentals))
+            @foreach($users as $user)
+                 @foreach($rentals as $rental)
+                     @if($user->id===$rental->user_id)
                 <tr>
-                    <td>{{$rental->user_id}}</td>
-                    <td>{{$rental->barcode_id}}</td>
+                    <td>
+                            {{$user->user_firstname}} {{$user->user_lastname}}
+                    </td>
+                    <td>@foreach($barcodes as $barcode)
+                            @if ($barcode->id===$rental->barcode_id)
+                        {{$barcode->barcode}}
+
+                            @endif
+                            @endforeach
+                    </td>
+                    <td>@foreach($barcodes as $barcode)
+                            @if ($barcode->id===$rental->barcode_id)
+
+                                <?php $author=App\Author::where('id',$barcode->book->author_id)->first();
+                                ?>
+                        <table>
+                            <thead>
+                            <th></th>
+                            <th></th>
+                            </thead>
+                            <tbody>
+                            <td class="pl-0">
+                                Auteur <br>
+                                Titel <br>
+                                Jaar <br>
+                                Editie <br>
+                            </td>
+                            <td>{{$author->author_firstname[0]}}. {{$author->author_lastname}} <br>
+                            {{$barcode->book->booktitle}} <br>
+                            {{$barcode->book->year}} <br>
+                            {{$barcode->book->edition}}<br>
+                            </td>
+                            </tbody>
+
+
+                        </table>
+
+                            @endif
+                        @endforeach
+                    </td>
+
                     <td>{{$rental->rentaldate}} </td>
                     <td>
                         @php
@@ -33,6 +74,8 @@
                            class="btn btn-secondary">Terugbrengen</a>
                     </td>
                 </tr>
+                @endif
+                    @endforeach
             @endforeach
         @endif
         </tbody>

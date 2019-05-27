@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Rental;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class RentalController extends Controller
 {
@@ -15,9 +16,6 @@ class RentalController extends Controller
     public function index()
     {
         //
-        $rentals=Rental::paginate(10);
-
-        return view('admin.rentals.index',compact('rentals'));
 
     }
 

@@ -12,7 +12,7 @@
                 {{ csrf_field() }}
                 <div class="input-group">
                     <input type="text" class="form-control my-4 ml-4" name="q"
-                           placeholder="Zoek op auteurs"> <span class="input-group-btn">
+                           placeholder="Zoek op auteur"> <span class="input-group-btn">
                         <button type="submit" class="btn btn-default">
                             <span class="glyphicon glyphicon-search"></span>
                         </button>

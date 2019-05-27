@@ -18,18 +18,19 @@ Route::any('/search','FrontController@searchAuthor');
 Route::get('/rental', array('as' => 'rental', 'uses' => 'FrontController@rentBook'));
 Route::get('/hires', array('as' => 'rental', 'uses' => 'FrontController@returnBook'));
 
-Auth::routes();
-Route::get('/home', 'HomeController@index')->name('home');
-Route::group(['middleware'=>'client'],function(){
 
-});
+
+Auth::routes();
+Route::get('/rentals','RentalController@index');
+Route::get('/home', 'HomeController@index')
+    ->name('home')
+    ->middleware('auth');
+
 Route::group(['middleware'=>'admin'],function(){
-    Route::get('/admin','HomeController@index');
     Route::resource('/admin/users','UsersController');
     Route::resource('/admin/books','BookController');
     Route::resource('/admin/books/barcodes','BarcodeController');
     Route::resource('/admin/authors','AuthorController');
-    Route::resource('/admin/rentals','RentalController');
     Route::resource('/admin/logs','LogsController');
 });
 

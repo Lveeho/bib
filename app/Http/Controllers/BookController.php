@@ -60,7 +60,9 @@ class BookController extends Controller
     {
         //
 
-        $input=$request->all();
+         $input=$request->all();
+         return $input;
+
         $check=Auth::user()->roles->where('name', 'admin')->First() == true;
         if($check){
            Book::create($input);
