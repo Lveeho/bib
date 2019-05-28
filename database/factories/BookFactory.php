@@ -11,7 +11,6 @@ $factory->define(\App\Book::class, function (Faker $faker) {
         'year'=>$faker->year($max='now'),
         'edition'=>$faker->numberBetween($min=1, $max=6),
         'description'=>$faker->text,
-        'photo_id'=>$faker->numberBetween($min=1, $max=100)
 
 
     ];

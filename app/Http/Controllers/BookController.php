@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
+
 class BookController extends Controller
 {
     /**
@@ -61,28 +62,18 @@ class BookController extends Controller
         //
 
          $input=$request->all();
-         return $input;
+         $file=$request->file('photo_id');
 
+         //dd($request->file('photo_id'));
         $check=Auth::user()->roles->where('name', 'admin')->First() == true;
         if($check){
-           Book::create($input);
+           $book=Book::create($input);
+           $book->addMediaFromRequest('photo_id')->toMediaCollection('avatar');
            $book_id=Book::get('id')->last();
            $test=(array_merge($input,['book_id'=>$book_id->id]));
            Barcode::create($test);
 
         }
-
-        if($file=$request->file('photo_id')){
-            $name=time().$file->getClientOriginalName();
-            $file->move('images',$name);
-            $photo=Book::create(['photo_id'=>$name]);
-            $input['photo_id']=$photo;
-
-        }
-
-
-
-
 
         return redirect()->route('books.index',compact('authors'));
     }
@@ -108,13 +99,15 @@ class BookController extends Controller
     public function edit($id)
     {
         //
-
         $book=Book::findOrFail($id);
-        //$barcodes=Barcode::where('id',$book->book_id)->first();
-       // dd($barcodes);
+        $pictures=$book->getMedia('avatar');
+        $authors=Author::select(
+            DB::raw("CONCAT(author_firstname,' ',author_lastname) AS name"),'id')
+            ->orderBy('author_firstname','asc')->get()
+            ->pluck('name','id')
+            ->prepend('Choose options','default');
 
-
-        return view('admin.books.edit',compact('book'));
+        return view('admin.books.edit',compact('book','pictures','authors'));
     }
 
     /**
@@ -132,11 +125,11 @@ class BookController extends Controller
         $book=Book::findOrFail($id);
         $barcodesId=Barcode::where('book_id',$book->id)->get("id");
 
+        if(isset($input['photo_id'])){
+            $book->addMediaFromRequest('photo_id')->toMediaCollection('avatar');
+        }
 
         $book->update($input);
-        if(!empty($file=$request->file('photo_id'))){
-            $book->addMediaFromRequest('image')->toMediaCollection('images');;
-        }
 
         if(!empty($request->barcode)){
             for ($i=0;$i<count($request->barcode);$i++){

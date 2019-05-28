@@ -13,7 +13,8 @@ use Illuminate\Support\Facades\Input;
 |
 */
 
-Route::get('/', 'Frontcontroller@index');
+
+Route::get('/', 'Frontcontroller@index')->name('search');
 Route::any('/search','FrontController@searchAuthor');
 Route::get('/rental', array('as' => 'rental', 'uses' => 'FrontController@rentBook'));
 Route::get('/hires', array('as' => 'rental', 'uses' => 'FrontController@returnBook'));

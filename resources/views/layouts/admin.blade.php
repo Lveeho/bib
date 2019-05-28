@@ -84,7 +84,7 @@
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link" href="../public">
+                    <a class="nav-link" href="{{route('search')}}">
                         <i class="fas fa-search mr-3"></i>
                         <span class="menu-title">Zoeken</span>
                     </a>

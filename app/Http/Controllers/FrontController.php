@@ -76,10 +76,21 @@ class FrontController extends Controller
             ->get();
         $user=auth()->user();
         $amountRentals=Rental::where('user_id',$user->id)->get();
-
+        $rentalDates=Rental::select('rentaldate')->get();
+        $late=NULL;
+        foreach($rentalDates as $rentalDate){
+            $endDate=Carbon::createFromFormat('Y-m-d',$rentalDate->rentaldate,
+                'Europe/Brussels');
+            $endDate->addDays(14);
+            $end=$endDate->format('Y-m-d');
+            $thisTime=Carbon::now();
+            if($thisTime>$end){
+                $late=1;
+            }
+        }
         if($user===null){
             return redirect('login');
-        }elseif ((count($barcodeIDs)>0) and (count($amountRentals)<=6)){
+        }elseif ((count($barcodeIDs)>0) and (count($amountRentals)<=6) and empty($late)){
             $rental= new Rental();
             $rental->user_id=$user->id;
             $barcodeID=$barcodeIDs[0]->id;
@@ -89,9 +100,17 @@ class FrontController extends Controller
             $barcodeIDs[0]->status=0;
             $barcodeIDs[0]->save();
             return redirect('/')->with('succes','Boek werd toegevoegd!');
-        }else{
-            return redirect('/')->with('status','Meer dan 7 ontleningen zijn niet mogelijk, of boek niet beschikbaar!');
+        }elseif(count($amountRentals)>6){
+            return redirect('/')->with('status','Meer dan 7 ontleningen zijn niet mogelijk.');
+        }elseif(!empty($late)){
+            return redirect('/')->with('status','Ontlenen is niet mogelijk, een boek is te laat.');
+        }else {
+            return redirect('/')->with('status','Het boek is momenteel niet beschikbaar!');
         }
+
+
+
+
     }
 
     public function returnBook(Request $request){

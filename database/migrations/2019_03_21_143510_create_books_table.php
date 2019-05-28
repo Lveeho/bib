@@ -19,9 +19,9 @@ class CreateBooksTable extends Migration
             $table->string('booktitle');
             $table->integer('author_id');
             $table->year('year');
-            $table->integer('edition');
-            $table->text('description');
-            $table->string('photo_id');
+            $table->integer('edition')->nullable();
+            $table->text('description')->nullable();
+            $table->string('photo_id')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

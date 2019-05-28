@@ -4,11 +4,14 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+
 use Spatie\MediaLibrary\HasMedia\HasMedia;
 use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
+use Spatie\MediaLibrary\File;
 
 
-class Book extends Model
+
+class Book extends Model implements HasMedia
 {
     use SoftDeletes,HasMediaTrait;
     //
@@ -22,4 +25,11 @@ class Book extends Model
         return $this->belongsTo('App\Author');
     }
 
+
+    public function registerMediaCollections()
+    {
+        $this
+            ->addMediaCollection('avatar')
+            ->singleFile();
+    }
 }

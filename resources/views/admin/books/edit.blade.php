@@ -18,8 +18,7 @@
             </div>
             <div class="form-group">
                 {!! Form::label('author_id','Auteur:') !!}
-                {!! Form::text('author_id',null,['class'=>'form-control']) !!}
-                {{--{!! Form::select('author_id',[''=>'Choose options']  ,null,['class'=>'form-control']) !!}--}}
+                {!! Form::select('author_id',$authors,null,['class'=>'form-control']) !!}
             </div>
             <div class="form-group">
                 {!! Form::label('year','Jaar:') !!}
@@ -34,8 +33,13 @@
                 {!! Form::textarea('description',null,['class'=>'form-control','rows'=>3])!!}
             </div>
             <div class="form-group">
-                {!! Form::submit('Update Book', ['class' => 'btn btn-primary col-md-3']) !!}
+                {!! Form::label('photo_id','Photo:') !!}
+                {!! Form::file('photo_id',null,['class'=>'form-control']) !!}
             </div>
+            <div class="form-group">
+                {!! Form::submit('Update Book', ['class' => 'btn btn-primary']) !!}
+            </div>
+            {!! Form::close() !!}
         </div>
         <div class="col-lg-6">
             <div class="row mt-5">
@@ -59,43 +63,42 @@
                                 </div>
                             </div>
                         @endforeach
+                        <div class="row">
+                            <div class="col-9">
+                                {!! Form::open(['method'=>'POST','action'=>'BarcodeController@store']) !!}
+                                <div class="form-group">
+                                    {!! Form::label('barcode','Barcode:') !!}
+                                    {!! Form::text('barcode',null,['class'=>'form-control'])!!}
+                                </div>
+                                <div class="form-group">
+                                    {!! Form::hidden('id',$book->id,['class'=>'form-control'])!!}
+                                </div>
+                            </div>
+                            <div class="col-3">
+                                <div class="form-group mt-4">
+                                    {!! Form::button('<i class="fas fa-plus-circle"></i>',
+                                    ['class'=>'btn create text-primary btn-sm','type'=>'submit']) !!}
+                                </div>
+                                {!! Form::close() !!}
+                            </div>
+                        </div>
                     @endif
                 </div>
-            </div>
-            <div class="row">
-                <img class=img-responsive" src="{{url('public/images/'.$book->photo_id)}}"
-                     alt="">
-                <div class="form-group">
-                    {!! Form::label('photo_id','Photo:') !!}
-                    {!! Form::file('photo_id',null,['class'=>'form-control']) !!}
+                <div class="col-12">
+                    <div class="row">
+                        <div class="col-9">
+                            @foreach ($pictures as $picture)
+                                <div class="card p-5">
+                                    <img src="{{$picture->getUrl()}}" class="card-img-top
+                                    img-fluid"
+                                         alt="...">
+                                </div>
+                            @endforeach
+                        </div>
+                    </div>
                 </div>
             </div>
-            {!! Form::close() !!}
-        </div>
-
-    </div>
-
-    <div class="row">
-        <div class="col-9">
-            <hr>
-            {!! Form::open(['method'=>'POST','action'=>'BarcodeController@store']) !!}
-            <div class="form-group">
-                {!! Form::label('barcode','Barcode:') !!}
-                {!! Form::text('barcode',null,['class'=>'form-control'])!!}
-            </div>
-            <div class="form-group">
-                {!! Form::hidden('id',$book->id,['class'=>'form-control'])!!}
-            </div>
-            <div class="form-group ">
-                {!! Form::button('<i class="fas fa-plus-circle"></i>',
-                ['class'=>'btn create text-primary btn-sm','type'=>'submit']) !!}
-            </div>
-            {!! Form::close() !!}
         </div>
     </div>
-
-
-
-
     @include('includes.form_error')
 @stop
