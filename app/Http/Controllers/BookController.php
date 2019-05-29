@@ -62,13 +62,16 @@ class BookController extends Controller
         //
 
          $input=$request->all();
+
          $file=$request->file('photo_id');
 
          //dd($request->file('photo_id'));
         $check=Auth::user()->roles->where('name', 'admin')->First() == true;
         if($check){
            $book=Book::create($input);
-           $book->addMediaFromRequest('photo_id')->toMediaCollection('avatar');
+            if(!empty($request->file('photo_id'))){
+                $book->addMediaFromRequest('photo_id')->toMediaCollection('avatar');
+            }
            $book_id=Book::get('id')->last();
            $test=(array_merge($input,['book_id'=>$book_id->id]));
            Barcode::create($test);

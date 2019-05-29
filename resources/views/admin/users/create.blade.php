@@ -7,15 +7,15 @@
         <div class="col-lg-6 pr-lg-5">
             <div class="form-group">
                 {!! Form::label('user_firstname','Voornaam:') !!}
-                {!! Form::text('user_firstname',null,['class'=>'form-control']) !!}
+                {!! Form::text('user_firstname',null,['class'=>'form-control','required']) !!}
             </div>
             <div class="form-group">
                 {!! Form::label('user_lastname','Achternaam:') !!}
-                {!! Form::text('user_lastname',null,['class'=>'form-control']) !!}
+                {!! Form::text('user_lastname',null,['class'=>'form-control','required']) !!}
             </div>
             <div class="form-group">
                 {!! Form::label('email','E-mail:') !!}
-                {!! Form::text('email',null,['class'=>'form-control']) !!}
+                {!! Form::text('email',null,['class'=>'form-control','required']) !!}
             </div>
             <div class="form-group">
                 {!! Form::label('rijksnr','Rijksregisternummer:') !!}
@@ -23,22 +23,22 @@
             </div>
             <div class="form-group">
                 {!! Form::label('password','Password:') !!}
-                {!! Form::password('password',['class'=>'form-control']) !!}
+                {!! Form::password('password',['class'=>'form-control','required']) !!}
             </div>
             <div class="form-group">
                 {!! Form::label('status','Status:') !!}
-                {!! Form::select('status',array(1=>'Actief',0=>'Non-actief'),null,['class'=>'form-control']) !!}
+                {!! Form::select('status',array(1=>'Actief',0=>'Non-actief'),null,['class'=>'form-control','required']) !!}
             </div>
 
             <div class="form-group">
                 {!! Form::label('role_id','Nieuwe rol toewijzen:') !!}
-                {!! Form::select('role_id',array(2=>'Ontlener',1=>'Admin'),null,['class'=>'form-control']) !!}
+                {!! Form::select('role_id',array(2=>'Ontlener',1=>'Admin'),null,['class'=>'form-control','required']) !!}
             </div>
         </div>
         <div class="col-lg-6">
             <div class="form-group">
                 {!! Form::label('street','Straat:') !!}
-                {!! Form::text('street',null,['class'=>'form-control'])
+                {!! Form::text('street',null,['class'=>'form-control','required'])
                  !!}
             </div>
             <div class="form-group">
@@ -52,11 +52,11 @@
             </div>
             <div class="form-group">
                 {!! Form::label('postalcode','Postcode:') !!}
-                {!! Form::text('postalcode',null,['class'=>'form-control']) !!}
+                {!! Form::text('postalcode',null,['class'=>'form-control','required']) !!}
             </div>
             <div class="form-group">
                 {!! Form::label('country','Land:') !!}
-                {!! Form::text('country',null,['class'=>'form-control']) !!}
+                {!! Form::text('country',null,['class'=>'form-control','required']) !!}
             </div>
             <div class="form-group">
                 {!! Form::submit('Opslaan', ['class' => 'btn btn-primary']) !!}

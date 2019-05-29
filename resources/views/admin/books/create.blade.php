@@ -7,19 +7,19 @@
         <div class="col-lg-6 pr-lg-5">
             <div class="form-group">
                 {!! Form::label('ISBN','ISBN:') !!}
-                {!! Form::text('ISBN',null,['class'=>'form-control']) !!}
+                {!! Form::text('ISBN',null,['class'=>'form-control','required']) !!}
             </div>
             <div class="form-group">
                 {!! Form::label('booktitle','Boek titel:') !!}
-                {!! Form::text('booktitle',null,['class'=>'form-control']) !!}
+                {!! Form::text('booktitle',null,['class'=>'form-control','required']) !!}
             </div>
             <div class="form-group">
                 {!! Form::label('author_id','Auteur:') !!}
-                {!! Form::select('author_id',$authors,null,['class'=>'form-control']) !!}
+                {!! Form::select('author_id',$authors,null,['class'=>'form-control','required']) !!}
             </div>
             <div class="form-group">
                 {!! Form::label('year','Jaar:') !!}
-                {!! Form::text('year',null,['class'=>'form-control']) !!}
+                {!! Form::text('year',null,['class'=>'form-control','required']) !!}
             </div>
             <div class="form-group">
                 {!! Form::label('edition','Editie:') !!}
@@ -39,7 +39,7 @@
 
             <div class="form-group">
                 {!! Form::label('barcode','Barcode:') !!}
-                {!! Form::text('barcode',null,['class'=>'form-control'])!!}
+                {!! Form::text('barcode',null,['class'=>'form-control','required'])!!}
             </div>
 
             <div class="form-group">
