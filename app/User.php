@@ -46,15 +46,16 @@ class User extends Authenticatable
     public function address(){
         return $this->belongsTo('App\Address');
     }
-    public function isAdmin(){
 
-     /* if(Auth::user()->roles->where('name', 'admin')->First())
-    $test = true;*/
-      //dd( $this->roles()->First()->name) ;
-        if(Auth::user()->roles->where('name', 'admin')->First() == true){
-            return true;
-        }else{
-            return false;
+    public function isAdmin(){
+        foreach ($this->roles()->get() as $role)
+        {
+            if ($role->name == 'admin')
+            {
+                return true;
+            }
         }
+
+        return false;
     }
 }

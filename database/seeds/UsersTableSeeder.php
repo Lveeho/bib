@@ -23,6 +23,7 @@ class UsersTableSeeder extends Seeder
             'remember_token'=>str_random(10),
             'address_id'=>21
         ]);
+
         DB::table('users')->insert([
             'user_firstname'=>'Brent',
             'user_lastname'=>'Vanhooren',
